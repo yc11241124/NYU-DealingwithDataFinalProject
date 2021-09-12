@@ -1,0 +1,1073 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Data Comparison</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src = "/static/js/echarts.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jqueryui/style.css">
+
+  </head>
+
+  <body style = "background-color: #f3f3f3;">
+	<nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">Airbnb Visualization</div>
+        </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/plus">Data View</a></li>
+            <li><a href="/dataComp">Data Comparison</a></li>
+            <li class="active"><a href="#">Trend</a></li>
+            <li><a href="/about">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+	</nav>
+
+	<div class="container">
+        <div class="row">
+            <div class = "col-lg-4" id="col11">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Houses</h4>
+                    <div class = "chart-area" id = "houses" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col12">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Total Host</h4>
+                    <div class = "chart-area" id = "totalhost" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col13">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Multiple Host</h4>
+                    <div class = "chart-area" id = "multiplehost" style="height:25%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-lg-4" id="col21">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Entire Room</h4>
+                    <div class = "chart-area" id = "entireroom" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col22">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Private Room</h4>
+                    <div class = "chart-area" id = "privateroom" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col23">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Shared Room</h4>
+                    <div class = "chart-area" id = "sharedroom" style="height:25%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-lg-4" id="col31">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Max Price</h4>
+                    <div class = "chart-area" id = "maxprice" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col32">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Min Price</h4>
+                    <div class = "chart-area" id = "minprice" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col33">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Median Price</h4>
+                    <div class = "chart-area" id = "medianprice" style="height:25%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-lg-4" id="col41">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Average Price</h4>
+                    <div class = "chart-area" id = "averageprice" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col42">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Positive Review</h4>
+                    <div class = "chart-area" id = "positive" style="height:25%"></div>
+                </div>
+            </div>
+            <div class = "col-lg-4" id="col43">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Negative Review</h4>
+                    <div class = "chart-area" id = "negative" style="height:25%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-lg-4" id="col51">
+                <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+                    <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Neutral Review</h4>
+                    <div class = "chart-area" id = "neutral" style="height:25%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal_col11" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="housebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col12" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="hostbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col13" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="multiplebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col21" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="entirebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col22" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="privatebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col23" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="sharedbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col31" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="maxbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col32" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="minbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col33" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="medianbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col41" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="averagebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col42" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="positivebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col43" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="negativebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col51" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="neutralbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+	</div>
+
+    <script type="text/javascript">
+        var housebox = echarts.init(document.getElementById('housebox'));
+        var houses = echarts.init(document.getElementById('houses'));
+
+        $('#col11').click(function(){
+	        $('#myModal_col11').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col11').on('shown.bs.modal',function() {
+            housebox.resize();
+            $.post('/trend', {"name": "TotalListings"}, function (ff) {
+                housebox.setOption({
+                    title: {text: 'Total Listings'},
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "TotalListings"}, function(ff) {
+            houses.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+
+        var hostbox = echarts.init(document.getElementById('hostbox'));
+        var totalhost = echarts.init(document.getElementById('totalhost'));
+
+        $('#col12').click(function(){
+	        $('#myModal_col12').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col12').on('shown.bs.modal',function(){
+            hostbox.resize();
+            $.post('/trend', {"name": "TotalHost"}, function(ff) {
+                hostbox.setOption({
+                    title: { text: 'Total Host #' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "TotalHost"}, function(ff) {
+            totalhost.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+
+        var multiplebox = echarts.init(document.getElementById('multiplebox'));
+        var multiplehost = echarts.init(document.getElementById('multiplehost'));
+
+        $('#col13').click(function(){
+	        $('#myModal_col13').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col13').on('shown.bs.modal',function(){
+            multiplebox.resize();
+            $.post('/trend', {"name": "MultipleHost"}, function(ff) {
+                multiplebox.setOption({
+                    title: { text: 'Multiple Host %' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "MultipleHost"}, function(ff) {
+            multiplehost.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        
+        var entirebox = echarts.init(document.getElementById('entirebox'));
+        var entireroom = echarts.init(document.getElementById('entireroom'));
+
+        $('#col21').click(function(){
+	        $('#myModal_col21').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col21').on('shown.bs.modal',function(){
+            entirebox.resize();
+            $.post('/trend', {"name": "Entire_Room"}, function(ff) {
+                entirebox.setOption({
+                    title: { text: 'Entire Room' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Entire_Room"}, function(ff) {
+            entireroom.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        var privatebox = echarts.init(document.getElementById('privatebox'));
+        var privateroom = echarts.init(document.getElementById('privateroom'));
+
+        $('#col22').click(function(){
+	        $('#myModal_col22').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col22').on('shown.bs.modal',function(){
+            privatebox.resize();
+            $.post('/trend', {"name": "Private_Room"}, function(ff) {
+                privatebox.setOption({
+                    title: { text: 'Private Room' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Private_Room"}, function(ff) {
+            privateroom.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        var sharedbox = echarts.init(document.getElementById('sharedbox'));
+        var sharedroom = echarts.init(document.getElementById('sharedroom'));
+
+        $('#col23').click(function(){
+	        $('#myModal_col23').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col23').on('shown.bs.modal',function(){
+            sharedbox.resize();
+            $.post('/trend', {"name": "Shared_Room"}, function(ff) {
+                sharedbox.setOption({
+                    title: { text: 'Shared Room' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Shared_Room"}, function(ff) {
+            sharedroom.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        
+        var maxbox = echarts.init(document.getElementById('maxbox'));
+        var maxprice = echarts.init(document.getElementById('maxprice'));
+
+        $('#col31').click(function(){
+	        $('#myModal_col31').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col31').on('shown.bs.modal',function(){
+            maxbox.resize();
+            $.post('/trend', {"name": "MaxPrice"}, function(ff) {
+                maxbox.setOption({
+                    title: { text: 'Max Price' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "MaxPrice"}, function(ff) {
+            maxprice.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        
+        var minbox = echarts.init(document.getElementById('minbox'));
+        var minprice = echarts.init(document.getElementById('minprice'));
+
+        $('#col32').click(function(){
+	        $('#myModal_col32').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col32').on('shown.bs.modal',function(){
+            minbox.resize();
+            $.post('/trend', {"name": "MinPrice"}, function(ff) {
+                minbox.setOption({
+                    title: { text: 'Min Price' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "MinPrice"}, function(ff) {
+            minprice.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        
+        var medianbox = echarts.init(document.getElementById('medianbox'));
+        var medianprice = echarts.init(document.getElementById('medianprice'));
+
+        $('#col33').click(function(){
+	        $('#myModal_col33').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col33').on('shown.bs.modal',function(){
+            medianbox.resize();
+            $.post('/trend', {"name": "MedianPrice"}, function(ff) {
+                medianbox.setOption({
+                    title: { text: 'Median Price' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "MedianPrice"}, function(ff) {
+            medianprice.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        var averagebox = echarts.init(document.getElementById('averagebox'));
+        var averageprice = echarts.init(document.getElementById('averageprice'));
+
+        $('#col41').click(function(){
+	        $('#myModal_col41').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col41').on('shown.bs.modal',function(){
+            averagebox.resize();
+            $.post('/trend', {"name": "AveragePrice"}, function(ff) {
+                averagebox.setOption({
+                    title: { text: 'Average Price' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "AveragePrice"}, function(ff) {
+            averageprice.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        var positivebox = echarts.init(document.getElementById('positivebox'));
+        var positive = echarts.init(document.getElementById('positive'));
+
+        $('#col42').click(function(){
+	        $('#myModal_col42').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col42').on('shown.bs.modal',function(){
+            positivebox.resize();
+            $.post('/trend', {"name": "Positive"}, function(ff) {
+                positivebox.setOption({
+                    title: { text: 'Positive Review' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Positive"}, function(ff) {
+            positive.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+        
+        var negativebox = echarts.init(document.getElementById('negativebox'));
+        var negative = echarts.init(document.getElementById('negative'));
+
+        $('#col43').click(function(){
+	        $('#myModal_col43').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col43').on('shown.bs.modal',function(){
+            negativebox.resize();
+            $.post('/trend', {"name": "Negative"}, function(ff) {
+                negativebox.setOption({
+                    title: { text: 'Negative Review' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Negative"}, function(ff) {
+            negative.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+
+        var neutralbox = echarts.init(document.getElementById('neutralbox'));
+        var neutral = echarts.init(document.getElementById('neutral'));
+
+        $('#col51').click(function(){
+	        $('#myModal_col51').modal();//点击按钮弹出模态框
+        });
+
+        $('#myModal_col51').on('shown.bs.modal',function(){
+            neutralbox.resize();
+            $.post('/trend', {"name": "Neutral"}, function(ff) {
+                neutralbox.setOption({
+                    title: { text: 'Neutral Review' },
+                    legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                    xAxis: {data: ff["time"]},
+                    yAxis: { type: 'value'},
+                    series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+                });
+            });
+        });
+        $.post('/trend', {"name": "Neutral"}, function(ff) {
+            neutral.setOption({
+                legend: { data:['London', 'SanFrancisco', 'Sydney'] },
+                xAxis: {data: ff["time"]},
+                yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                series: [{
+                        name: "London",
+                        type: 'line',
+                        data: ff["London"],
+                        smooth: true
+                    },{
+                        name: "SanFrancisco",
+                        type: 'line',
+                        data: ff["SanFrancisco"],
+                        smooth: true
+                    },{
+                        name: "Sydney",
+                        type: 'line',
+                        data: ff["Sydney"],
+                        smooth: true
+                    }]
+            });
+        });
+	</script>
+  </body>
+</html>

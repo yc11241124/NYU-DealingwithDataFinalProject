@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data of Plus in Airbnb</title>
+    <link href="/static/css/mycss.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui-slider-pips.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/static/bootstrap-4/js/bootstrap.min.js"></script>
+    <script src="/static/map_js/jquery-ui.js"></script>
+    <script src="/static/map_js/jquery-ui-slider-pips.js"></script>
+    <script src="/static/map_js/citys.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=%Replace here with API key%&callback=initMap">
+    </script>
+    <script src="/static/map_js/map.js"></script>
+    <script src="/static/map_js/echarts.js"></script>
+    <script>
+        function initSelection(){
+             var time="{{t}}";
+             var plus="{{plus}}";
+             var city="{{city}}";
+             var pb=document.getElementsByName("plus")[0];
+             var tb=document.getElementsByName("time")[0];
+             var cb=document.getElementsByName("city")[0];
+             pb.value=plus;
+             tb.value=time;
+             cb.value=city;
+        }
+        function initSlider(cityname)
+       {
+             if(cityname == 'london')
+            {
+                var view = ld;
+            }
+            if(cityname == 'sydney')
+           {
+               var view = sy;
+           }
+            if(cityname == 'sanfrancisco')
+           {
+               var view = sf;
+           }
+           var v=view.indexOf('{{t}}');
+           $("#circles-slider").innerHTML = "";
+           $("#circles-slider")
+             .slider({
+                 min: 0,
+                 max: view.length-1,
+                 value: v,
+             })
+         .slider("pips", {
+             first:"label",
+             last:"label",
+             rest: "pip",
+             labels:view
+         })
+         .slider("float", {
+             rest:"label",
+             labels: view
+         })
+         .on("slidechange", function(e,ui) {
+           document.getElementsByName("time")[0].value = view[ui.value];
+           reLoad();
+           time = view[ui.value];
+            var ct='{{city}}';
+            var plus='{{plus}}';
+            $.post('/get_loc', {'city':ct, 'plus':plus, 'time':time}, function(dt){
+              for(var i = 0;i<markers.length;i++)
+              {
+               markers[i].setMap(null);
+               }
+               markers.length = 0;
+               scatterMap(map, dt.loc);
+               loadStat(dt.stat);
+               rePanel(dt.ct);
+               reGraph(dt.graph);
+            })
+          });
+          }
+    </script>
+    <style type="text/css">
+      body,html{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        background:white;
+      }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <div class="navbar-brand">Airbnb Visualization</div>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#">Data View</a></li>
+            <li><a href="/dataComp">Data Comparison</a></li>
+            <li><a href="/dataTrend">Trend</a></li>
+            <li><a href="/about">About Us</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div id="map_container" class="col-md-8">
+    <div id="map"> </div>
+    <script type="text/javascript">
+    var cityloc={london:{lat: 51.512389548622686, lng: -0.06366919786089295},
+                 sydney:{lat: -33.8686788, lng:151.1082588},
+                 sanfrancisco:{lat: 37.7701746 , lng: -122.4225323}
+                };
+    var map=initMap(cityloc.{{city}});
+    var markers = [];
+    var dat={{loc_dat|tojson}};
+    scatterMap(map, dat);
+    </script>
+    <div class="container" id="timebar">
+         <div id="circles-slider"></div>
+         <script>
+             initSlider('{{city}}');
+         </script>
+    </div>
+</div>
+<div class="col-md-3.5" id="filter">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                  <h3 class="panel-title">
+                      Filter Setting
+                  </h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="post" id="filter-form">
+                <h4>City Selection</h4>
+                    <select class="form control" name="city">
+                        <option value="london">London</option>
+                        <option value="sanfrancisco">San Francisco</option>
+                        <option value="sydney">Sydney</option>
+                    </select>
+                <h4 id="time-filter">Time:</h4>
+                    <select class="form control time" name="time">
+                    </select>
+                    <script type="text/javascript">
+                        initTime('{{city}}');
+                        var cn = document.getElementsByName('city')[0];
+                        console.log(cn.value);
+                        cn.addEventListener("change", function(){
+                             var cn = document.getElementsByName('city')[0];
+                             console.log("change " + cn.value);
+                             initTime(cn.value);
+                        });
+                        var tm = document.getElementsByName("time")[0];
+                        tm.addEventListener("change", function(){
+                             var pl = document.getElementsByName("plus-field")[0];
+                             if(tm.value=='2018-10')
+                             {
+                                 pl.style.visibility="visible";
+                             }
+                             else
+                             {
+                                 pl.style.visibility="hidden";
+                                 pl.value="both";
+                             }
+                        });
+                    </script>
+                    <br/>
+                <div name="plus-field">
+                    <h4>Plus/None-Plus:</h4>
+                    <select class="form control" name="plus">
+                        <option value="both">Both</option>
+                        <option value="plus">Only Plus</option>
+                        <option value="noneplus">Only None-Plus</option>
+                    </select>
+                </div>
+                <div style="text-align:center; padding:10px;">
+                    <input type="submit" value="Apply" class="btn btn-info" id="btn_submit">
+                    <button type="button" class="btn btn-danger" onclick="onc()">Reset</button>
+                    <script>
+                        function onc()
+                        {
+                             var pb=document.getElementsByName("plus")[0];
+                             var tb=document.getElementsByName("time")[0];
+                             var cb=document.getElementsByName("city")[0];
+                             pb.value="both";
+                             tb.value="2018-10";
+                             cb.value="london";
+                        }
+                    </script>
+                </div>
+                </form>
+                <script type="text/javascript">
+                    initSelection();
+                </script>
+            </div>
+        </div>
+        <div class="panel panel-default" name="com-panel">
+            <div class="panel panel-heading">
+                <h3 class="panel-title">
+                    {% if flag %}
+                    Plus vs Non-Plus
+                    {% else %}
+                    Room Type
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% if flag %}
+                <p>Plus vs Non-Plus:{{stat["Plus Number"]}}/{{stat["Total Listings"]-stat["Plus Number"]}}</p>
+                <div name="number-versus">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 10%;" name="plus">
+                              <span></span>
+                        </div>
+                        <div style="display:inline">{{pc}}%</div>
+                    </div>
+                </div>
+                {% else %}
+                <div name="room-type">
+                    <p>Entire Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{stat['Entire Room %'] | int}}%;display:inline;" name="ent">
+                              <span>{{stat['Entire Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Entire Room #"]}}</div>
+                    </div>
+                    <p>Private Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{stat['Private Room %']|int}}%;display:inline;" name="prv">
+                              <span>{{stat['Private Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Private Room #"]}}</div>
+                    </div>
+                    <p>Shared Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width:10%;" name="shared">
+                              <span>{{stat['Shared Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Shared Room #"]}}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Trend
+                </h3>
+            </div>
+            <div style="width:20px">
+            </div>
+            <div class="panel-body" id="graph-container">
+                {% for g in graph%}
+                <div id={{g[0]|tojson}} style="width:85%;height:200px;" class="graph"></div>
+                <script>
+                    drawgraph({{g[0]|tojson}}, {{g[1]|tojson}},
+                                       {{g[2]|tojson}}, {{g[0]|tojson}});
+                </script>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Statistics
+                </h3>
+            </div>
+            <div class="divider"></div>
+            <table class="table" id="stat">
+                <th>Statistics</th>
+                <th>Value </th>
+                {% for st in stat %}
+                <tr>
+                    <td>{{st}}</td>
+                    <td>{{stat[st]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <script>
+                function loadStat(stat){
+                    var tb = document.getElementById("stat");
+                    tb.innerHTML="";
+                    var contentString = "<tr><th>Statistics</th><th>Value </th></tr>";
+                    for(st in stat)
+                    {
+                         contentString += "<tr><td>"+st+"</td><td>"+stat[st]+"</td></tr>";
+                    }
+                    tb.innerHTML=contentString;
+                }
+            </script>
+        </div>
+</div>
+</body>
+</html>

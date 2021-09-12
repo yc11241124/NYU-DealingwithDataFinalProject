@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data of Plus in Airbnb</title>
+    <link href="../css/mycss.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bars.css" type="text/css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../bootstrap-4/js/bootstrap.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.10&key=aad8dc4860ef691ef1ea979bccd16948"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASsHD7nSZFjvgeSCm9ycg5_Kcuil_7m1c&callback=initMap">
+    </script>
+    <script src="../map_js/map.js"></script>
+    <script src="../map_js/data.js"></script>
+    <script src="../map_js/echarts.js"></script>
+    <script src="../map_js/bars.js"></script>
+    <style type="text/css">
+      body,html{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Airbnb Plus Data</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Data View</a></li>
+            <li><a href="#">Data Comparison</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    City Filter
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Sydney</a></li>
+                    <li><a href="#">London</a></li>
+                    <li><a href="#">San Fransisco</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">More City</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div id="map_container" class="col-md-8">
+    <div id="map"> </div>
+    <script type="text/javascript">
+    var map=initMap({lat: 51.512389548622686, lng: -0.06366919786089295});
+    scatterMap(map, london);
+    </script>
+    <div class="container" id="timebar">
+         <ul class="time-horizontal">
+            <li><a href="#"><b></b><div class="time">2015</div></a></li>
+            <li><a href="#"><b></b><div class="time">2016</div></a></li>
+            <li><a href="#"><b></b><div class="time">2017</div></a></li>
+            <li><a href="#"><b></b><div class="time">2018</div></a></li>
+         </ul>
+    </div>
+</div>
+<div class="col-md-3" id="filter">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                  <h3 class="panel-title">
+                      Filter Setting
+                  </h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="get">
+                <h4>City Selection</h4>
+                    <select class="form control" name="city">
+                        <option value="london">London</option>
+                        <option value="sanfrancisco">San Francisco</option>
+                        <option value="sydney">Sydney</option>
+                    </select>
+                <h4>Plus/None-Plus:</h4>
+                    <select class="form control" name="plus">
+                        <option value="both">Both</option>
+                        <option value="plus">Only Plus</option>
+                        <option value="noneplus">Only None-Plus</option>
+                    </select>
+                <h4>Time:</h4>
+                    <select class="form control" name="time">
+                        <option value="2015-05">2015-05</option>
+                        <option value="2016-12">2016-12</option>
+                        <option value="2016-12">2017-12</option>
+                        <option value="2018-01">2018-01</option>
+                        <option value="2018-10">2018-10</option>
+                    </select>
+                <div style="text-align:center">
+                    <input type="submit" value="Submit" class="btn btn-info">
+                    <button type="button" class="btn btn-danger">Reset</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h3 class="panel-title">
+                    Plus vs Non-Plus
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>Plus Users:</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 59%;">
+                        <span>59%</span>
+                    </div>
+                    <div style="display:inline">2359</div>
+                </div>
+                <p>None-Plus Users:</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 41%;display:inline;">
+                        <span>41%</span>
+                    </div>
+                    <div style="display:inline">1437</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Statistics
+                </h3>
+            </div>
+            <div class="divider"></div>
+            <table class="table">
+                <th>Statistics of Price Property</th>
+                <th>Value </th>
+                <tr>
+                    <td>Mean</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Variance</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>Standard Deviation</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>etc.</td>
+                    <td>blabla</td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Trend
+                </h3>
+            </div>
+            <div style="width:20px">
+            </div>
+            <div class="panel-body">
+                <div id="graph" style="width:85%;height:200px;">
+                </div>
+                <script>
+                    drawgraph('graph', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                       [820, 932, 901, 934, 1290, 1330, 1320]);
+                </script>
+            </div>
+        </div>
+</div>
+</body>
+</html>

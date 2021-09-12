@@ -1,0 +1,53 @@
+<div class="panel panel-heading">
+                <h3 class="panel-title">
+                    {% if flag %}
+                    Plus vs Non-Plus
+                    {% else %}
+                    Room Type
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% if flag %}
+                <p>Plus vs Non-Plus:{{stat["Plus Number"]}}/{{stat["Total Listings"]-stat["Plus Number"]}}</p>
+                <div name="number-versus">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 10%;" name="plus">
+                              <span></span>
+                        </div>
+                        <div style="display:inline">{{pc}}%</div>
+                    </div>
+                </div>
+                {% else %}
+                <div name="room-type">
+                    <p>Entire Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{stat['Entire Room %'] | int}}%;display:inline;" name="ent">
+                              <span>{{stat['Entire Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Entire Room #"]}}</div>
+                    </div>
+                    <p>Private Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{stat['Private Room %']|int}}%;display:inline;" name="prv">
+                              <span>{{stat['Private Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Private Room #"]}}</div>
+                    </div>
+                    <p>Shared Room</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                             style="width:10%;" name="shared">
+                              <span>{{stat['Shared Room %']|int}}%</span>
+                        </div>
+                        <div style="display:inline">{{stat["Shared Room #"]}}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>

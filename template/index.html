@@ -1,0 +1,653 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Data Comparison</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src = "/static/js/echarts.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jqueryui/style.css">
+
+  </head>
+
+  <body style = "background-color: #f3f3f3;">
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Airbnb Visualization</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/plus">Data View</a></li>
+            <li class="active"><a href="/dataComp">Data Comparison</a></li>
+            <li><a href="/dataTrend">Trend</a></li>
+            <li><a href="/about">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+	</nav>
+
+
+	<div class="container">
+      <div class="row">
+        <div class = "col-lg-4" id="col11">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Houses</h4>
+            <div class = "chart-area" id = "houses" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4" id="col12">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Room Type</h4>
+            <div class = "chart-area" id = "roomtype" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4" id="col13">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Host Numbers</h4>
+            <div class = "chart-area" id = "host" style="height:23%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col21">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Review Sentiment</h4>
+            <div class = "chart-area" id = "reviewsentiment" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col22">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Multiple Hosts</h4>
+            <div class = "chart-area" id = "multiplehost" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col23">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px
+             10px 0px 20px;">Average Price</h4>
+            <div class = "chart-area" id = "averageprice" style="height:23%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col31">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Max Price</h4>
+            <div class = "chart-area" id = "maxprice" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col32">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 10px;">Min Price</h4>
+            <div class = "chart-area" id = "minprice" style="height:23%"></div>
+          </div>
+        </div>
+        <div class = "col-lg-4">
+          <div class="chart" style = "border-radius: 5px; background-color: #f9f9f9;" id = "col33">
+            <h4 class = "chart-title" style = "color: #293c55; padding: 20px 10px 0px 20px;">Median Price</h4>
+            <div class = "chart-area" id = "medianprice" style="height:23%"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="main_nav_bottom">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+          <div class="container" align="center">
+              <style>
+                  .nav-tabs {
+                      text-align: center;
+                      height: 50px;
+                      line-height: 40px;
+                  }
+              </style>
+              <input type="text" id="amount" readonly="readonly" style = "border:0; background-color: transparent; text-align: center; color:#f6931f; font-weight:bold;">
+              <div id="slider" style="width: 500px;"></div>
+          </div>
+        </nav>
+      </div>
+
+
+        <div id="myModal_col11" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="housebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col12" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="roomtypebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col13" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="hostbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col21" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="reviewbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col22" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="multiplebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col23" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="averagebox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col31" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="maxbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col32" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="minbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+        <div id="myModal_col33" class="modal fade bs-example-modal-lg"><!--模态框-->
+            <div class="modal-dialog modal-lg" style="height: 80%">
+                <div class="modal-content" style="height: 80%;">
+                    <div id="medianbox" style="height: 80%"></div><!--给echarts准备的容器-->
+                </div>
+            </div>
+        </div>
+	</div>
+    <div style="height:50px;"></div>
+    <script type="text/javascript">
+        var housebox = echarts.init(document.getElementById('housebox'));
+        var roomtypebox = echarts.init(document.getElementById('roomtypebox'));
+        var hostbox = echarts.init(document.getElementById('hostbox'));
+        var reviewbox = echarts.init(document.getElementById('reviewbox'));
+        var multiplebox = echarts.init(document.getElementById('multiplebox'));
+        var averagebox = echarts.init(document.getElementById('averagebox'));
+        var maxbox = echarts.init(document.getElementById('maxbox'));
+        var minbox = echarts.init(document.getElementById('minbox'));
+        var medianbox = echarts.init(document.getElementById('medianbox'));
+
+        var houses = echarts.init(document.getElementById('houses'));
+        var roomtype = echarts.init(document.getElementById('roomtype'));
+        var hosts = echarts.init(document.getElementById('host'));
+        var reviewsentiment = echarts.init(document.getElementById('reviewsentiment'));
+        var multiplehosts = echarts.init(document.getElementById('multiplehost'));
+        var averageprice = echarts.init(document.getElementById('averageprice'));
+        var maxprice = echarts.init(document.getElementById('maxprice'));
+        var minprice = echarts.init(document.getElementById('minprice'));
+        var medianprice = echarts.init(document.getElementById('medianprice'));
+
+        var years = ["2015-05","2015-09","2016-02","2016-12","2017-03","2018-04","2018-05","2018-07","2018-08","2018-09","2018-10"];
+        var activeYear = "2018-10";
+        $( "#amount" ).val( activeYear );
+
+
+        $('#col11').click(function(){
+	        $('#myModal_col11').modal();//点击按钮弹出模态框
+        });
+        $('#col12').click(function(){
+	        $('#myModal_col12').modal();//点击按钮弹出模态框
+        });
+        $('#col13').click(function(){
+	        $('#myModal_col13').modal();//点击按钮弹出模态框
+        });
+        $('#col21').click(function(){
+	        $('#myModal_col21').modal();//点击按钮弹出模态框
+        });
+        $('#col22').click(function(){
+	        $('#myModal_col22').modal();//点击按钮弹出模态框
+        });
+        $('#col23').click(function(){
+	        $('#myModal_col23').modal();//点击按钮弹出模态框
+        });
+        $('#col31').click(function(){
+	        $('#myModal_col31').modal();//点击按钮弹出模态框
+        });
+        $('#col32').click(function(){
+	        $('#myModal_col32').modal();//点击按钮弹出模态框
+        });
+        $('#col33').click(function(){
+	        $('#myModal_col33').modal();//点击按钮弹出模态框
+        });
+
+        function ChangeCharts(time) {
+            $('#myModal_col11').on('shown.bs.modal',function(){
+                housebox.resize();
+                $.post('/comparison', {"time": time, "name": "TotalListings"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    housebox.setOption({
+                        title: {
+                            text: 'Total Listings'
+                        },
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Total Listings",
+                            type: 'bar',
+                            data: ff["Total Listings"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "TotalListings"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                houses.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Total Listings",
+                        type: 'bar',
+                        data: ff["Total Listings"]
+                    }]
+                });
+            });
+
+            $('#myModal_col13').on('shown.bs.modal',function() {
+                hostbox.resize();
+                $.post('/comparison', {"time": time, "name": "TotalHost"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    hostbox.setOption({
+                        title: {
+                            text: 'Total Host Numbers'
+                        },
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Total Host Numbers",
+                            type: 'bar',
+                            data: ff["Total Host #"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "TotalHost"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                hosts.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Total Host Numbers",
+                        type: 'bar',
+                        data: ff["Total Host #"]
+                    }]
+                });
+            });
+
+            $('#myModal_col12').on('shown.bs.modal',function(){
+                roomtypebox.resize();
+                $.post('/comparison', {"time": time, "name": "Roomtype"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    roomtypebox.setOption({
+                        title: {
+                            text: 'Room Type'
+                        },
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Entire Room Numbers",
+                            type: 'bar',
+                            data: ff["Entire Room %"]
+                        },
+                        {
+                            name: "Private Room Numbers",
+                            type: 'bar',
+                            data: ff["Private Room %"]
+                        },
+                        {
+                            name: "Shared Room Numbers",
+                            type: 'bar',
+                            data: ff["Shared Room %"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "Roomtype"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+          //      console.log(ff);
+                roomtype.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Entire Room Numbers",
+                        type: 'bar',
+                        data: ff["Entire Room %"]
+                    },
+                    {
+                        name: "Private Room Numbers",
+                        type: 'bar',
+                        data: ff["Private Room %"]
+                    },
+                    {
+                        name: "Shared Room Numbers",
+                        type: 'bar',
+                        data: ff["Shared Room %"]
+                    }]
+                });
+            });
+
+            $('#myModal_col21').on('shown.bs.modal',function(){
+                reviewbox.resize();
+                $.post('/comparison', {"time": time, "name": "ReviewSentiment"}, function(ff) {
+                   // var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                 //   console.log(ff);
+                    reviewbox.setOption({
+                        title: {text: "Review Sentiment"},
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Positive",
+                            type: 'bar',
+                            data: ff["Positive"]
+                        },
+                        {
+                            name: "Negative",
+                            type: 'bar',
+                            data: ff["Negative"]
+                        },
+                        {
+                            name: "Neutral",
+                            type: 'bar',
+                            data: ff["Neutral"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "ReviewSentiment"}, function(ff) {
+               // var ff = $.parseJSON(response.replace(/'/g, '\"'));
+             //   console.log(ff);
+                reviewsentiment.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Positive",
+                        type: 'bar',
+                        data: ff["Positive"]
+                    },
+                    {
+                        name: "Negative",
+                        type: 'bar',
+                        data: ff["Negative"]
+                    },
+                    {
+                        name: "Neutral",
+                        type: 'bar',
+                        data: ff["Neutral"]
+                    }]
+                });
+            });
+
+            $('#myModal_col22').on('shown.bs.modal',function(){
+                multiplebox.resize();
+                    $.post('/comparison', {"time": time, "name": "MultipleHost"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    multiplebox.setOption({
+                        title: {text: "Multiple Host %"},
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Multiple Host %",
+                            type: 'bar',
+                            data: ff["Multiple Host %"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "MultipleHost"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                multiplehosts.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Multiple Host %",
+                        type: 'bar',
+                        data: ff["Multiple Host %"]
+                    }]
+                });
+            });
+
+            $('#myModal_col23').on('shown.bs.modal',function(){
+                averagebox.resize();
+                $.post('/comparison', {"time": time, "name": "AveragePrice"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    averagebox.setOption({
+                        title: {text: "Average Price"},
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Average Price",
+                            type: 'bar',
+                            data: ff["AveragePrice"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "AveragePrice"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                averageprice.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Average Price",
+                        type: 'bar',
+                        data: ff["AveragePrice"]
+                    }]
+                });
+            });
+
+            $('#myModal_col31').on('shown.bs.modal',function(){
+                maxbox.resize();
+                $.post('/comparison', {"time": time, "name": "MaxPrice"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    maxbox.setOption({
+                        title: {text: "Max Price"},
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Max Price",
+                            type: 'bar',
+                            data: ff["MaxPrice"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "MaxPrice"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                maxprice.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Max Price",
+                        type: 'bar',
+                        data: ff["MaxPrice"]
+                    }]
+                });
+            });
+
+            $('#myModal_col32').on('shown.bs.modal',function(){
+                minbox.resize();
+                $.post('/comparison', {"time": time, "name": "MinPrice"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    minbox.setOption({
+                        title: {text: "Min Price"},
+                        xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yAxis: {},
+                        series: [{
+                            name: "Min Price",
+                            type: 'bar',
+                            data: ff["MinPrice"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "MinPrice"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                minprice.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Min Price",
+                        type: 'bar',
+                        data: ff["MinPrice"]
+                    }]
+                });
+            });
+
+            $('#myModal_col31').on('shown.bs.modal',function(){
+                medianbox.resize();
+                $.post('/comparison', {"time": time, "name": "MedianPrice"}, function(ff) {
+                    //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+                //    console.log(ff);
+                    medianbox.setOption({
+                        title: {text: "Median Price"},
+                        xedianis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                        yedianis: {},
+                        series: [{
+                            name: "Median Price",
+                            type: 'bar',
+                            data: ff["MedianPrice"]
+                        }]
+                    });
+                });
+            });
+            $.post('/comparison', {"time": time, "name": "MedianPrice"}, function(ff) {
+                //var ff = $.parseJSON(response.replace(/'/g, '\"'));
+            //    console.log(ff);
+                medianprice.setOption({
+                    xAxis: {  data: ["London", "SanFrancisco", "Sydney"] },
+                    yAxis: {
+                            splitLine:{show:false},
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 1000) return value / 1000 + "k";
+                                    else return value;
+                                }
+                            }
+                    },
+                    series: [{
+                        name: "Max Price",
+                        type: 'bar',
+                        data: ff["MedianPrice"]
+                    }]
+                });
+            });
+        }
+
+        ChangeCharts(activeYear);
+
+
+        $(function() {
+            $( "#slider" ).slider({
+                value: years.length - 1,
+                min: 0,
+                max: years.length - 1,
+                slide: function( event, ui ) {
+                    $( "#amount" ).val( years[ui.value] );
+                    ChangeCharts(years[ui.value]);
+                }
+            });
+        });
+
+	</script>
+  </body>
+</html>
