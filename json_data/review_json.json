@@ -1,0 +1,35 @@
+[
+    {
+        "city": "london",
+        "time": "2018-10",
+        "pos": 161088,
+        "neu": 945606,
+        "neg": 3242,
+        "total_reviews": 1109936,
+        "pos%": 0.145,
+        "neu%": 0.852,
+        "neg%": 0.003
+    },
+    {
+        "city": "sanfrancisco",
+        "time": "2018-10",
+        "pos": 39762,
+        "neu": 253222,
+        "neg": 658,
+        "total_reviews": 293642,
+        "pos%": 0.135,
+        "neu%": 0.862,
+        "neg%": 0.003
+    },
+    {
+        "city": "sydney",
+        "time": "2018-10",
+        "pos": 75050,
+        "neu": 348800,
+        "neg": 1206,
+        "total_reviews": 425056,
+        "pos%": 0.177,
+        "neu%": 0.821,
+        "neg%": 0.003
+    }
+]
